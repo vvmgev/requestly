@@ -1,4 +1,4 @@
-import React, { ReactElement, memo } from "react";
+import { ReactElement, memo } from "react";
 import { Navigation } from "@devtools-ds/navigation";
 import { DetailsTab } from "../types";
 import "./resourceDetailsTabs.scss";
