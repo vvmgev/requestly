@@ -1,3 +1,5 @@
+import { Entry as HAREntry } from "har-format";
+
 export enum NetworkResourceType {
   FETCH = "fetch",
   XHR = "xhr",
@@ -13,22 +15,20 @@ export enum NetworkResourceType {
   OTHER = "other",
 }
 
-export type HAREntry = chrome.devtools.network.HAREntry;
-
 export type Networklog = HAREntry & { _resourceType?: NetworkResourceType };
 
 // applied rules info
 export interface LogAction extends Record<string, unknown> {
   ruleId: string;
   ruleType?: string;
-  metadata?: {
-    diff: unknown;
-  };
+  // metadata?: {
+  //   diff: unknown;
+  // };
 }
 
 export interface DesktopNetworkLog extends Record<string, unknown> {
   id: string;
-  log: Networklog; // HAR entry
+  data?: Networklog; // HAR entry
   actions: LogAction[];
 }
 
