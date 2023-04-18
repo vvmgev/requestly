@@ -20,7 +20,8 @@ export type Networklog = HAREntry & { _resourceType?: NetworkResourceType };
 // applied rules info
 export interface LogAction extends Record<string, unknown> {
   ruleId: string;
-  ruleType?: string;
+  /** it will help to get the rule icon */
+  ruleType: string;
   // metadata?: {
   //   diff: unknown;
   // };

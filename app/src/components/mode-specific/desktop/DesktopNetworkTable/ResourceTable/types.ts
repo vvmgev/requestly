@@ -3,7 +3,8 @@ import { ReactNode } from "react";
 export interface Column<ResourceType> {
   key: string;
   header: string;
-  width?: number; // percentage
+  /** in percentage */
+  width: number;
   render: (resource: ResourceType) => ReactNode;
 }
 
