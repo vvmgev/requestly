@@ -1,7 +1,7 @@
 //@ts-nocheck
 import React from "react";
 import { DesktopNetworkLog, HAREntry } from "./types";
-import { ResourceTableProps } from "./ResourceTable";
+import { ResourceTable, ResourceTableProps } from "./ResourceTable";
 import { useRegisterLogNetworkRequestEvent } from "./hooks";
 
 interface DesktopNetworkTableProps<T> extends ResourceTableProps<DesktopNetworkLog> {
@@ -11,7 +11,9 @@ interface DesktopNetworkTableProps<T> extends ResourceTableProps<DesktopNetworkL
 export const DesktopNetworkTable: React.FC<DesktopNetworkTableProps<DesktopNetworkLog>> = () => {
   const { newLogs } = useRegisterLogNetworkRequestEvent();
 
-  console.log({ newLogs });
-
-  return <div>{/* <ResourceTable /> */}</div>;
+  return (
+    <div>
+      <ResourceTable />
+    </div>
+  );
 };

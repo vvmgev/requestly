@@ -1,21 +1,17 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useFeatureIsOn } from "@growthbook/growthbook-react";
 import { desktopTrafficTableActions } from "store/features/desktop-traffic-table/slice";
-import { makeOriginalLog } from "capture-console-logs";
 import { getAllLogs } from "store/features/desktop-traffic-table/selectors";
-import { DesktopNetworkLog } from "../types";
+import { DesktopNetworkLog, DesktopNetworkLogEvent } from "../types";
 
 export const useRegisterLogNetworkRequestEvent = (): {
   newLogs: DesktopNetworkLog[];
 } => {
   const dispatch = useDispatch();
   const newLogs = useSelector(getAllLogs);
-  const [consoleLogsShown, setConsoleLogsShown] = useState([]);
-  const isTablePeristenceEnabled = useFeatureIsOn("traffic_table_perisitence");
 
   const saveLogInRedux = useCallback(
-    (log: DesktopNetworkLog) => {
+    (log: DesktopNetworkLogEvent) => {
       if (log) {
         //@ts-ignore
         if (log.response && log.response.body) {
@@ -30,21 +26,9 @@ export const useRegisterLogNetworkRequestEvent = (): {
     [dispatch]
   );
 
-  const printLogsToConsole = useCallback(
-    (log: DesktopNetworkLog) => {
-      if (log.consoleLogs && !consoleLogsShown.includes(log.id)) {
-        //@ts-ignore
-        log.consoleLogs.forEach((consoleLog) => [makeOriginalLog(consoleLog)]);
-        setConsoleLogsShown((prev) => [...prev, log.id]);
-      }
-    },
-    [consoleLogsShown]
-  );
-
   useEffect(() => {
     //@ts-ignore
     window?.RQ?.DESKTOP.SERVICES.IPC.registerEvent("log-network-request-v2", (payload) => {
-      console.log("network-log-event", payload);
       saveLogInRedux(payload);
     });
 
@@ -55,7 +39,7 @@ export const useRegisterLogNetworkRequestEvent = (): {
         window?.RQ.DESKTOP.SERVICES.IPC.unregisterEvent("log-network-request-v2");
       }
     };
-  }, [saveLogInRedux, printLogsToConsole, isTablePeristenceEnabled]);
+  }, [saveLogInRedux]);
 
   useEffect(() => {
     //@ts-ignore
