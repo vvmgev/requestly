@@ -1,6 +1,6 @@
 import { DesktopNetworkLog } from "../types";
-import { Column } from "../ResourceTable";
-import AppliedRules from "../../InterceptTraffic/WebTraffic/TrafficTableV2/Tables/columns/AppliedRules";
+import { Column } from "@requestly-ui/resource-table";
+// import AppliedRules from "../../InterceptTraffic/WebTraffic/TrafficTableV2/Tables/columns/AppliedRules";
 
 export enum DESKTOP_NETWORK_TABLE_COLUMN_IDS {
   TIME = "time",
@@ -36,13 +36,13 @@ export const desktopNetworkTableColumns: Column<DesktopNetworkLog>[] = [
     key: DESKTOP_NETWORK_TABLE_COLUMN_IDS.CONTENT_TYPE,
     render: (desktopNetworkLog) => desktopNetworkLog.data.response.content.mimeType,
   },
-  {
-    width: 10,
-    header: "Rules applied",
-    key: DESKTOP_NETWORK_TABLE_COLUMN_IDS.RULES_APPLIED,
-    // TODO: refactor "AppliedRules" component
-    render: (desktopNetworkLog) => <AppliedRules actions={desktopNetworkLog.actions} />,
-  },
+  // {
+  //   width: 10,
+  //   header: "Rules applied",
+  //   key: DESKTOP_NETWORK_TABLE_COLUMN_IDS.RULES_APPLIED,
+  //   // TODO: refactor "AppliedRules" component
+  //   render: (desktopNetworkLog) => <AppliedRules actions={desktopNetworkLog.actions} />,
+  // },
   {
     width: 10,
     header: "Status",

@@ -7,7 +7,7 @@ import "./InterceptTraffic.css";
 const InterceptTraffic = () => {
   return (
     <ProCard className="primary-card github-like-border web-traffic-pro-card">
-      <WebTraffic />
+      {/* <WebTraffic /> */}
       <DesktopNetworkTable />
     </ProCard>
   );
